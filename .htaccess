@@ -1,0 +1,13 @@
+Options +FollowSymLinks -Indexes
+ErrorDocument 404 /404.php
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^block/([a-zA-Z0-9_-]+)(|/)$ index.php?a=block&hash=$1 [QSA]
+RewriteRule ^tx/([a-zA-Z0-9_-]+)(|/)$ index.php?a=tx&hash=$1 [QSA]
+RewriteRule ^peers index.php?a=peers [QSA]
+RewriteRule ^stats index.php?a=stats [QSA]
+RewriteRule ^rich-list index.php?a=rich-list [QSA]
+RewriteRule ^search/ _search.php?q=$1 [QSA]
+RewriteRule ^blocks/([a-zA-Z0-9_-]+)(|/)$ index.php?a=blocks&page=$1 [QSA]
+RewriteRule ^blocks/ index.php?a=blocks [QSA]

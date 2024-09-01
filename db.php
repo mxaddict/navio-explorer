@@ -1,0 +1,6 @@
+<?
+$DBHost="";
+$DBUser="";
+$DBPass="";
+$DBName="";
+?>
