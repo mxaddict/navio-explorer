@@ -24,7 +24,7 @@ try
 }
 catch(PDOException $e)
 {
-	echo "DB Bağlantı Hatası: " . $e->getMessage();
+	echo "Database Connection Error : " . $e->getMessage();
 }
 function pretty_dump($arr, $d=0){
     if ($d==1) echo "<pre>";    // HTML Only
