@@ -52,7 +52,7 @@
 		blocks.data as blockData,
 		txs.data as txData
 		FROM blocks 
-		LEFT JOIN txs ON txs.block_hash=blocks.hash AND txs.txno=1
+		LEFT JOIN txs ON txs.block_hash=blocks.hash AND txs.txno=1 AND blocks.network_id=txs.network_id
 		WHERE blocks.network_id=:network_id
 		ORDER BY blocks.id DESC LIMIT 10";
 		$q=$GLOBALS['dbh']->prepare($sql);
