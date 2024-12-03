@@ -75,7 +75,7 @@
 				</div>
 			</div>
 			<div class="flex-1 p-4 mt-4 mb-4 mr-4 bg-white border border-zinc-200 rounded-xl shadow sm:p-8 dark:bg-zinc-800 dark:border-zinc-900 mb-10 bg-gradient-to-br from-violet-400 via-violet-600 to-violet-900">
-				<a href="/navio-explorer/peers">
+				<a href="peers/">
 					<h5 class="flex mb-4 text-xl font-medium text-gray-500 dark:text-white"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 mr-2">
 						<path stroke-linecap="round" stroke-linejoin="round" d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
 					</svg>
