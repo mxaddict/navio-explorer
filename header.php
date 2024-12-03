@@ -10,7 +10,7 @@ $class_p="text-gray-900 dark:text-white";
   <script src="https://cdn.tailwindcss.com"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="utf-8">
-  <base href="/navio-explorer/">
+  <base href="/">
 </head>
 <script>
   tailwind.config = {
