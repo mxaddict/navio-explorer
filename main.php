@@ -177,10 +177,10 @@
 						<?=$blockData->size?>
 					</td>
 					<td class="px-6 py-4 text-gray-900 dark:text-white">
-						<?=count($txData->vin);?>
+						<?= isset($txData) ? count($txData->vin) : 0); ?>
 					</td>
 					<td class="px-6 py-4 text-gray-900 dark:text-white">
-						<?=count($txData->vout);?>
+						<?= isset($txData) ? count($txData->vout) : 0); ?>
 					</td>
 					<td class="px-6 py-4 text-gray-900 dark:text-white">
 						<?=$fee;?>
