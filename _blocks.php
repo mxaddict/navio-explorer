@@ -8,7 +8,7 @@
 	$record_per_page=10;
 	try
 	{
-		$sql="SELECT COUNT(block_id) AS t FROM `blocks` WHERE blocks.network_id=:network_id";
+		$sql="SELECT max(block_id) AS t FROM `blocks` WHERE blocks.network_id=:network_id";
 		$q=$GLOBALS['dbh']->prepare($sql);
 		$q->bindParam(':network_id',$GLOBALS["network_id"], PDO::PARAM_INT);
 		$q->execute();
