@@ -1,6 +1,6 @@
 <?
 session_start();
-if ($_GET["network_id"])
+if (isset($_GET["network_id"]))
 {
     $_SESSION["network_id"]=$_GET["network_id"];
 }

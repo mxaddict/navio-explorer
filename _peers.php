@@ -19,9 +19,9 @@
 		$content = curl_exec($ch);
 		curl_close($ch);
 		$json=json_decode($content);
-		$latest_commit_hash=$json[0]->sha;
-		$latest_commit_hash_short=substr($json[0]->sha,0,12);
-		$latest_commit_date=$json[0]->commit->author->date;
+        $latest_commit_hash=is_array($json) ? $json[0]->sha : 'UNKNOWN';
+        $latest_commit_hash_short=substr($latest_commit_hash,0,12);
+        $latest_commit_date=is_array($json) ? $json[0]->commit->author->date : "1970-01-01T00:00:00Z";
 		$d=DateTime::createFromFormat('Y-m-d\TH:i:s\Z', $latest_commit_date, new DateTimeZone('Europe/Istanbul'));
 		$latest_commit_date=date_format($d, 'd-m-Y H:i:s');
 		?>
@@ -75,17 +75,6 @@
 							$ip=gethostbyname(explode(":",$v["addr"])[0]);
 							$city=$CityReader->get($ip);
 							$asn=$ASNReader->get($ip);
-							/*$url="https://api.ipapi.is/?q=".$ip;
-							$ch=curl_init();
-							curl_setopt($ch, CURLOPT_URL, $url);
-							curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.2; WOW64; rv:17.0) Gecko/20100101 Firefox/17.0;");
-							curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-							$ip_details = curl_exec($ch);
-							$ip_details=json_decode($ip_details);*/
-							//echo $url;
-							//var_dump($ip_details);
-							//echo "<hr>";
-							curl_close($ch);
 							if (strpos($v["subver"],$latest_commit_hash_short ) !== false)
 							{
 								$class="text-green-500 dark:text-green-500";
@@ -99,19 +88,11 @@
 								<td>
 									<?=$city["continent"]["names"]["en"];?> -
 									<?=$city["continent"]["code"];?>
-									<!--
-									<p><?=$ip_details->location->continent?> - <?=$ip_details->location->state?> / <?=$ip_details->location->country?></p>
-									<p><?=$ip_details->asn->org?></p>
-									!-->
 								</td>
 								<td>
 									<?=$city["city"]["names"]["en"]?> - 
 									<?=$city["country"]["names"]["en"]?> (<?=$city["country"]["iso_code"]?>)
 									<p><?=$asn["autonomous_system_organization"]?></p>
-									<!--
-									<p><?=$ip_details->location->continent?> - <?=$ip_details->location->state?> / <?=$ip_details->location->country?></p>
-									<p><?=$ip_details->asn->org?></p>
-									!-->
 								</td>
 								<td class="px-6 py-4 text-gray-900 dark:text-white">
 									<?=$v["addr"]?>
