@@ -38,12 +38,12 @@ try {
         $latest_block = 0;
     }
     $sql = "select
-		height,
+		blks.height,
 		hash,
 		data as blockdata,
 		txs.data as txdata
 		from blks
-        join txs on txs.block_hash = blks.hash and txs.txno = 1
+        join txs on txs.block_hash = blks.hash and txs.txno = 1 and txs.height = blks.height
         order by blks.id desc
         limit 10";
     $q = $GLOBALS['dbh']->prepare($sql);
