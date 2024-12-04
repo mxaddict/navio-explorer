@@ -3,6 +3,76 @@
 	<h6 class="text-lg font-bold text-white dark:text-white">Blocks</h6>
 	<p class="text-white dark:text-white"><?=((isset($_GET["page"])?"Page : " . $_GET["page"]:"Latest Blocks"))?></p>
 </div>
+<div class="relative overflow-x-auto">
+	<table class="w-full text-sm text-left rtl:text-right text-gray-900 dark:text-zinc-400">
+		<thead class="text-xs text-gray-900 uppercase bg-gray-200 dark:bg-zinc-900 dark:text-white">
+			<tr>
+				<th scope="col" class="px-6 py-3 text-gray-900 dark:text-white">
+					Height
+				</th>
+				<th scope="col" class="px-6 py-3 text-gray-900 dark:text-white">
+					Hash
+				</th>
+				<th scope="col" class="px-6 py-3 text-gray-900 dark:text-white">
+					Time (UTC)
+				</th>
+				<th scope="col" class="px-6 py-3 text-gray-900 dark:text-white">
+					TXs
+				</th>
+				<th scope="col" class="px-6 py-3 text-gray-900 dark:text-white">
+					Size
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?
+			while($row=$q->fetch(PDO::FETCH_ASSOC))
+			{
+				$blockData=json_decode($row["blockData"]);
+				?>
+				<tr class="bg-white text-gray-900 border-b dark:bg-zinc-800 dark:border-zinc-900 dark:text-white">
+					<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+						<a class='text-blue-600 dark:text-blue-400' href="block/<?=$row["hash"]?>"><?=$row["block_id"]?></a>
+					</th>
+					<td class="px-6 py-4">
+						<a class='text-blue-600 dark:text-blue-400' href="block/<?=$row["hash"]?>"><?=$row["hash"]?></a>
+					</td>
+					<td class="px-6 py-4 text-gray-900 dark:text-white">
+						<?
+						$epoch = $blockData->time;
+						$dt = new DateTime("@$epoch");
+						echo $dt->format('Y-m-d H:i:s');
+						?>
+					</td>
+					<td class="px-6 py-4 text-gray-900 dark:text-white">
+						<?=($blockData->nTx==1?"Empty":"Not Empty")?>
+					</td>
+					<td class="px-6 py-4 text-gray-900 dark:text-white">
+						<?=$blockData->size?>
+					</td>
+				</tr>
+				<?
+			}
+			?>
+		</tbody>
+	</table>
+</div>
+<?
+}
+else
+{
+	?>
+	<p class="text-gray-900 dark:text-white">No blocks found.</p>
+	<?
+}
+}
+catch (PDOException $e)
+{
+	echo $e->getMessage();
+}
+?>
+</div>
+
 <div class="p-4">
 	<?
 	$record_per_page=10;
@@ -98,73 +168,4 @@ else
 	<path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
 </svg>
 Last</a>
-</div>
-<div class="relative overflow-x-auto">
-	<table class="w-full text-sm text-left rtl:text-right text-gray-900 dark:text-zinc-400">
-		<thead class="text-xs text-gray-900 uppercase bg-gray-200 dark:bg-zinc-900 dark:text-white">
-			<tr>
-				<th scope="col" class="px-6 py-3 text-gray-900 dark:text-white">
-					Height
-				</th>
-				<th scope="col" class="px-6 py-3 text-gray-900 dark:text-white">
-					Hash
-				</th>
-				<th scope="col" class="px-6 py-3 text-gray-900 dark:text-white">
-					Time (UTC)
-				</th>
-				<th scope="col" class="px-6 py-3 text-gray-900 dark:text-white">
-					TXs
-				</th>
-				<th scope="col" class="px-6 py-3 text-gray-900 dark:text-white">
-					Size
-				</th>
-			</tr>
-		</thead>
-		<tbody>
-			<?
-			while($row=$q->fetch(PDO::FETCH_ASSOC))
-			{
-				$blockData=json_decode($row["blockData"]);
-				?>
-				<tr class="bg-white text-gray-900 border-b dark:bg-zinc-800 dark:border-zinc-900 dark:text-white">
-					<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-						<a class='text-blue-600 dark:text-blue-400' href="block/<?=$row["hash"]?>"><?=$row["block_id"]?></a>
-					</th>
-					<td class="px-6 py-4">
-						<a class='text-blue-600 dark:text-blue-400' href="block/<?=$row["hash"]?>"><?=$row["hash"]?></a>
-					</td>
-					<td class="px-6 py-4 text-gray-900 dark:text-white">
-						<?
-						$epoch = $blockData->time;
-						$dt = new DateTime("@$epoch");
-						echo $dt->format('Y-m-d H:i:s');
-						?>
-					</td>
-					<td class="px-6 py-4 text-gray-900 dark:text-white">
-						<?=($blockData->nTx==1?"Empty":"Not Empty")?>
-					</td>
-					<td class="px-6 py-4 text-gray-900 dark:text-white">
-						<?=$blockData->size?>
-					</td>
-				</tr>
-				<?
-			}
-			?>
-		</tbody>
-	</table>
-</div>
-<?
-}
-else
-{
-	?>
-	<p class="text-gray-900 dark:text-white">No blocks found.</p>
-	<?
-}
-}
-catch (PDOException $e)
-{
-	echo $e->getMessage();
-}
-?>
 </div>
