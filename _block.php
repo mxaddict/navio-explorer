@@ -4,11 +4,11 @@
 	<?php
 	try {
 		if (!is_numeric($_GET["hash"])) {
-			$sql="select * from blocks where hash=:hash limit 1";
+			$sql="select * from blks where hash=:hash limit 1";
 			$q=$GLOBALS['dbh']->prepare($sql);
 			$q->bindParam(':hash',$_GET["hash"] , PDO::PARAM_STR);
 		} else {
-			$sql="select * from blocks where height=:height limit 1";
+			$sql="select * from blks where height=:height limit 1";
 			$q=$GLOBALS['dbh']->prepare($sql);
 			$q->bindParam(':height',$_GET["hash"] , PDO::PARAM_STR);
 		}
