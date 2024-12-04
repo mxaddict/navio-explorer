@@ -98,7 +98,7 @@
 			<span class="ms-1 text-xl font-normal text-gray-500 dark:text-gray-300"><?=$sync_percent?>%</span>
 		</div>
 	</div>
-		<div class="flex-1 p-4 mt-4 mb-4 mr-4 bg-white border border-zinc-200 rounded-xl shadow sm:p-8 dark:bg-zinc-800 dark:border-zinc-900 mb-10 bg-gradient-to-br from-yellow-400 via-yellow-600 to-yellow-900">
+		<div class="flex-1 p-4 mt-4 mb-4 mr-0 bg-white border border-zinc-200 rounded-xl shadow sm:p-8 dark:bg-zinc-800 dark:border-zinc-900 mb-10 bg-gradient-to-br from-yellow-400 via-yellow-600 to-yellow-900">
 			<h5 class="flex mb-4 text-xl font-medium text-gray-500 dark:text-white"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 mr-2">
   <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 0 1 0 3.75H5.625a1.875 1.875 0 0 1 0-3.75Z" />
 </svg>
@@ -110,7 +110,7 @@
 		</div>
 	</div>
 </div>
-<h6 class="text-lg font-bold text-white dark:text-white mb-10">Latest 10 Block</h6>
+<h6 class="text-lg font-bold text-white dark:text-white mb-5">Latest 10 Block</h6>
 <div class="relative overflow-x-auto">
 	<table class="w-full text-sm text-left rtl:text-right text-gray-900 dark:text-zinc-400">
 		<thead class="text-xs text-gray-900 uppercase bg-gray-200 dark:bg-zinc-900 dark:text-white">
