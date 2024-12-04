@@ -8,7 +8,7 @@
 	$record_per_page=10;
 	try
 	{
-		$sql="select max(block_id) as count from blocks";
+		$sql="select max(block_id) as count from blks";
 		$q=$GLOBALS['dbh']->prepare($sql);
 		$q->execute();
 		if ($q->rowCount()>0)
@@ -23,11 +23,11 @@
 			$offset=" OFFSET ".($record_per_page*intval($_GET["page"]-1));
 		}
 		$sql="select
-		blocks.block_id,
-		blocks.hash,
-		blocks.data as blockdata
-		from blocks
-        order by blocks.id desc
+		block_id,
+		hash,
+		data as blockdata
+		from blks
+        order by id desc
         limit {$record_per_page}
         {$offset}";
 		$q=$GLOBALS['dbh']->prepare($sql);
