@@ -4,7 +4,7 @@
 <?php
 $sql="
 select
-    block_id,
+    height,
     json_extract(blocks.data, '$.size') as size,
     json_extract(blocks.data, '$.time') as time,
     json_extract(blocks.data, '$.difficulty') as difficulty
@@ -18,13 +18,13 @@ if ($q->rowCount()>0)
   $arr_sizes = [];
   $arr_times = [];
   $arr_difficulties = [];
-  $arr_block_ids = [];
+  $arr_heights = [];
   while($row=$q->fetch(PDO::FETCH_ASSOC))
   {
     $arr_sizes[]=$row["size"];
     $arr_times[]=$row["time"];
     $arr_difficulties[]=$row["difficulty"];
-    $arr_block_ids[]=$row["block_id"];
+    $arr_heights[]=$row["height"];
   }
 }
 ?>
@@ -64,7 +64,7 @@ if ($q->rowCount()>0)
           color:  '#ffffff'
         },
       },
-      labels:[<?=implode(",",$arr_block_ids)?>],
+      labels:[<?=implode(",",$arr_heights)?>],
       xaxis: {
        labels: {
         show: false,
@@ -120,7 +120,7 @@ if ($q->rowCount()>0)
         color:  '#ffffff'
       },
     },
-    labels:[<?=implode(",",$arr_block_ids)?>],
+    labels:[<?=implode(",",$arr_heights)?>],
     xaxis: {
      labels: {
       show: false,

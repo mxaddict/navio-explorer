@@ -26,7 +26,7 @@ if ($q->rowCount() > 0) {
 }
 
 try {
-    $sql = "select max(block_id) as latest_block from blocks limit 1";
+    $sql = "select max(height) as latest_block from blks limit 1";
     $q = $GLOBALS['dbh']->prepare($sql);
     $q->execute();
     if ($q->rowCount() > 0) {
@@ -38,13 +38,14 @@ try {
         $latest_block = 0;
     }
     $sql = "select
-		blocks.block_id,
-		blocks.hash,
-		blocks.data as blockdata,
-		txs.data as txdata
-		from blocks
-		left join txs on txs.block_hash=blocks.hash and txs.txno=1
-        order by blocks.id desc
+		height,
+		hash,
+		empty,
+        vins,
+        vouts,
+        fee
+		from blks
+        order by id desc
         limit 10";
     $q = $GLOBALS['dbh']->prepare($sql);
     $q->execute();
@@ -142,20 +143,20 @@ try {
                     <tbody>
 			<?php while ($row = $q->fetch(PDO::FETCH_ASSOC)) { ?>
                 <?php
-                        $blockdata = json_decode($row["blockdata"]);
-			    $txdata = json_decode($row["txdata"]);
-			    $fee = "";
-			    if (isset($txdata->vout)) {
-			        foreach ($txdata->vout as $k => $v) {
-			            if ($v->scriptPubKey->asm == "OP_RETURN") {
-			                $fee = $v->value;
-			            }
-			        }
-			    }
+                    $blockdata = json_decode($row["blockdata"]);
+                    $txdata = json_decode($row["txdata"]);
+                    $fee = "";
+                    if (isset($txdata->vout)) {
+                        foreach ($txdata->vout as $k => $v) {
+                            if ($v->scriptPubKey->asm == "OP_RETURN") {
+                                $fee = $v->value;
+                            }
+                        }
+                    }
 			    ?>
 				<tr class="bg-white text-gray-900 border-b dark:bg-zinc-800 dark:border-zinc-900 dark:text-white">
 					<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-						<a class='text-blue-600 dark:text-blue-400' href="block/<?=$row["hash"]?>"><?=$row["block_id"]?></a>
+						<a class='text-blue-600 dark:text-blue-400' href="block/<?=$row["hash"]?>"><?=$row["height"]?></a>
 					</th>
 					<td class="px-6 py-4">
 						<a class='text-blue-600 dark:text-blue-400' href="block/<?=$row["hash"]?>"><?=$row["hash"]?></a>
@@ -163,9 +164,9 @@ try {
 					<td class="px-6 py-4 text-gray-900 dark:text-white">
 						<?php
 			                $epoch = $blockdata->time;
-			    $dt = new DateTime("@$epoch");
-			    echo $dt->format('Y-m-d H:i:s');
-			    ?>
+                            $dt = new DateTime("@$epoch");
+                            echo $dt->format('Y-m-d H:i:s');
+                        ?>
 					</td>
 					<td class="px-6 py-4 text-gray-900 dark:text-white">
 						<?=($blockdata->nTx == 1 ? "Empty" : "Not Empty")?>
@@ -174,13 +175,13 @@ try {
 						<?=$blockdata->size?>
 					</td>
 					<td class="px-6 py-4 text-gray-900 dark:text-white">
-						<?= isset($txdata) ? count($txdata->vin) : 0; ?>
+						<?=$row['vins'];?>
 					</td>
 					<td class="px-6 py-4 text-gray-900 dark:text-white">
-						<?= isset($txdata) ? count($txdata->vout) : 0; ?>
+						<?=$row['vouts'];?>
 					</td>
 					<td class="px-6 py-4 text-gray-900 dark:text-white">
-						<?=$fee;?>
+						<?=$row['fee'];?>
 					</td>
 				</tr>
             <?php } ?>

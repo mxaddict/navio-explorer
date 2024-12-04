@@ -8,9 +8,9 @@
 			$q=$GLOBALS['dbh']->prepare($sql);
 			$q->bindParam(':hash',$_GET["hash"] , PDO::PARAM_STR);
 		} else {
-			$sql="select * from blocks where block_id=:block_id limit 1";
+			$sql="select * from blocks where height=:height limit 1";
 			$q=$GLOBALS['dbh']->prepare($sql);
-			$q->bindParam(':block_id',$_GET["hash"] , PDO::PARAM_STR);
+			$q->bindParam(':height',$_GET["hash"] , PDO::PARAM_STR);
 		}
 		$q->execute();
 		if ($q->rowCount()>0) {
@@ -18,7 +18,7 @@
 			$data=json_decode($row["data"],true);
 			?>
 			<h5 class="text-white dark:text-white">Block Hash : <?=$row["hash"]?></h5>
-			<h6 class="text-white dark:text-white">Block Height : <?=$row["block_id"]?></h6>
+			<h6 class="text-white dark:text-white">Block Height : <?=$row["height"]?></h6>
 			<div class="relative overflow-x-auto mt-5">
 				<table class="w-full text-sm text-left rtl:text-right text-zinc-500 dark:text-zinc-400">
 					<thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-zinc-900 dark:text-white">

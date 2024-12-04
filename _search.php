@@ -2,9 +2,9 @@
 include "init.php";
 try {
     if (is_numeric($_GET["q"])) {
-        $sql = "select * from blocks where block_id=:block_id limit 1";
+        $sql = "select * from blocks where height=:height limit 1";
         $q = $GLOBALS['dbh']->prepare($sql);
-        $q->bindParam(':block_id', $_GET["q"], PDO::PARAM_STR);
+        $q->bindParam(':height', $_GET["q"], PDO::PARAM_STR);
     } else {
         $sql = "select * from blocks where hash=:hash limit 1";
         $q = $GLOBALS['dbh']->prepare($sql);

@@ -8,7 +8,7 @@
 	$record_per_page=10;
 	try
 	{
-		$sql="select max(block_id) as count from blks";
+		$sql="select max(height) as count from blks";
 		$q=$GLOBALS['dbh']->prepare($sql);
 		$q->execute();
 		if ($q->rowCount()>0)
@@ -23,7 +23,7 @@
 			$offset=" OFFSET ".($record_per_page*intval($_GET["page"]-1));
 		}
 		$sql="select
-		block_id,
+		height,
 		hash,
 		data as blockdata
 		from blks
@@ -127,7 +127,7 @@ Last</a>
 				?>
 				<tr class="bg-white text-gray-900 border-b dark:bg-zinc-800 dark:border-zinc-900 dark:text-white">
 					<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-						<a class='text-blue-600 dark:text-blue-400' href="block/<?=$row["hash"]?>"><?=$row["block_id"]?></a>
+						<a class='text-blue-600 dark:text-blue-400' href="block/<?=$row["hash"]?>"><?=$row["height"]?></a>
 					</th>
 					<td class="px-6 py-4">
 						<a class='text-blue-600 dark:text-blue-400' href="block/<?=$row["hash"]?>"><?=$row["hash"]?></a>

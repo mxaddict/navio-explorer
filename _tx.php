@@ -6,11 +6,11 @@
 	{
         $sql = "
         select
-            blocks.block_id,
-            blocks.hash,
+            blks.height,
+            blks.hash,
             txs.data
         from txs
-        left join blocks on txs.block_hash=blocks.hash
+        left join blks on txs.block_hash=blks.hash
         where txs.txid=:txid
         limit 1";
 		$q=$GLOBALS['dbh']->prepare($sql);
@@ -22,7 +22,7 @@
 			$data=json_decode($row["data"],true);
 			?>
 			<h5 class="text-white dark:text-white">Block Hash : <?=$row["hash"]?></h5>
-			<h6 class="text-white dark:text-white">Block Height : <?=$row["block_id"]?></h6>
+			<h6 class="text-white dark:text-white">Block Height : <?=$row["height"]?></h6>
 			<div class="relative overflow-x-auto mt-5">
 				<table class="w-full text-sm text-left rtl:text-right text-zinc-500 dark:text-zinc-400">
 					<thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-zinc-900 dark:text-white">
