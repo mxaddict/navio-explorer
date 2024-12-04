@@ -5,10 +5,10 @@
 $sql="
 select
     height,
-    json_extract(blocks.data, '$.size') as size,
-    json_extract(blocks.data, '$.time') as time,
-    json_extract(blocks.data, '$.difficulty') as difficulty
-from blocks
+    json_extract(blks.data, '$.size') as size,
+    json_extract(blks.data, '$.time') as time,
+    json_extract(blks.data, '$.difficulty') as difficulty
+from blks
 order by id desc
 limit 1000";
 $q=$GLOBALS['dbh']->prepare($sql);
