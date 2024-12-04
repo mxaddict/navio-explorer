@@ -26,7 +26,7 @@ try
 	}
 	else
 	{
-		include "h.php";
+		include "header.php";
 		?>
 		<?=title("Search")?>
 		<div class="p-4 w-full">
@@ -34,7 +34,7 @@ try
 			<p class="text-white dark:text-white">No block matching your search criteria was found.</p>
 		</div>
 		<?
-		include "f.php";
+		include "footer.php";
 	}
 }
 catch (PDOException $e)
