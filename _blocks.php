@@ -1,7 +1,7 @@
 <?=title("Blocks")?>
 <div class="p-4 text-white dark:text-white">
 	<h6 class="text-lg font-bold text-white dark:text-white">Blocks</h6>
-	<p class="text-white dark:text-white"><?=(($_GET["page"]?"Page : " . $_GET["page"]:"Latest Blocks"))?></p>
+	<p class="text-white dark:text-white"><?=((isset($_GET["page"])?"Page : " . $_GET["page"]:"Latest Blocks"))?></p>
 </div>
 <div class="p-4">
 	<?
