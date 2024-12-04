@@ -13,19 +13,15 @@ order by id desc
 limit 1000";
 $q=$GLOBALS['dbh']->prepare($sql);
 $q->execute();
-if ($q->rowCount()>0)
-{
-  $arr_sizes = [];
-  $arr_times = [];
-  $arr_difficulties = [];
-  $arr_heights = [];
-  while($row=$q->fetch(PDO::FETCH_ASSOC))
-  {
+$arr_sizes = [];
+$arr_times = [];
+$arr_difficulties = [];
+$arr_heights = [];
+while($row=$q->fetch(PDO::FETCH_ASSOC)) {
     $arr_sizes[]=$row["size"];
     $arr_times[]=$row["time"];
     $arr_difficulties[]=$row["difficulty"];
     $arr_heights[]=$row["height"];
-  }
 }
 ?>
 <script>
