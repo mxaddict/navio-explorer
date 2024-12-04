@@ -12,7 +12,7 @@ if (!isset($_SESSION["network"])) {
 }
 
 if (isset($_GET["network"])) {
-    if (in_array($networks, $_GET["network"])) {
+    if (in_array($_GET["network"], $networks)) {
         $_SESSION["network"] = $_GET["network"];
     }
 }
