@@ -76,7 +76,8 @@
 					</thead>
 					<tbody>
 						<?php
-						foreach ($data[0] as $k=>$v)
+                        $peers = isset($data[0]) && is_array($data[0]) ? $data[0] : [];
+						foreach ($peers as $k=>$v)
 						{
 							$ip=gethostbyname(explode(":",$v["addr"])[0]);
 							$city=$CityReader->get($ip);
