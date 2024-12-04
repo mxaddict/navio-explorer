@@ -18,7 +18,7 @@
 			$total_blocks=$row["t"];
 			$total_page=ceil($total_blocks/$record_per_page);
 		}
-		if ($_GET["page"])
+		if (isset($_GET["page"]))
 		{
 			$offset=" OFFSET ".($record_per_page*intval($_GET["page"]-1));
 		}
