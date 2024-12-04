@@ -1,26 +1,19 @@
 <?=title("Block Details")?>
 <div class="p-4 w-full">
 	<h4 class="text-lg font-bold text-white dark:text-white">Block Details</h4>
-	<?
-	try
-	{
-		if (!is_numeric($_GET["hash"]))
-		{
-			$sql="SELECT * FROM blocks WHERE hash=:hash AND network_id=:network_id LIMIT 1";
+	<?php
+	try {
+		if (!is_numeric($_GET["hash"])) {
+			$sql="select * from blocks where hash=:hash limit 1";
 			$q=$GLOBALS['dbh']->prepare($sql);
 			$q->bindParam(':hash',$_GET["hash"] , PDO::PARAM_STR);
-			$q->bindParam(':network_id',$GLOBALS["network_id"], PDO::PARAM_STR);
-		}
-		else
-		{
-			$sql="SELECT * FROM blocks WHERE block_id=:block_id AND network_id=:network_id LIMIT 1";
+		} else {
+			$sql="select * from blocks where block_id=:block_id limit 1";
 			$q=$GLOBALS['dbh']->prepare($sql);
 			$q->bindParam(':block_id',$_GET["hash"] , PDO::PARAM_STR);
-			$q->bindParam(':network_id',$GLOBALS["network_id"], PDO::PARAM_STR);
 		}
 		$q->execute();
-		if ($q->rowCount()>0)
-		{
+		if ($q->rowCount()>0) {
 			$row=$q->fetch(PDO::FETCH_ASSOC);
 			$data=json_decode($row["data"],true);
 			?>
@@ -39,7 +32,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<?
+						<?php
 						foreach ($data as $k=>$v)
 						{
 							?>
@@ -48,7 +41,7 @@
 									<?=$k?>
 								</td>
 								<td class="px-6 py-4 text-gray-900 dark:text-white">
-									<?
+									<?php
 									if (is_array($v))
 									{
 										foreach ($v as $k2=>$v2)
@@ -67,22 +60,20 @@
 									{
 										?>
 										<?=$v?>
-										<?
+										<?php
 									}
 									?>
 								</td>
 							</tr>
-							<?
+							<?php
 						}
 						?>
 					</tbody>
 				</table>
 			</div>
-			<?
+			<?php
 		}
-	}
-	catch (PDOException $e)
-	{
+	} catch (PDOException $e) {
 		echo $e->getMessage();
 	}
 	?>

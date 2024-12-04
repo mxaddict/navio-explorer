@@ -1,13 +1,24 @@
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <div id="chart1" class="w-full" style="min-height: 365px;width:100%"></div>
 <div id="chart2" class="w-full" style="min-height: 365px;width:100%"></div>
-<?
-$sql="SELECT block_id,JSON_EXTRACT(blocks.data, '$.size') AS size,JSON_EXTRACT(blocks.data, '$.time') AS time,JSON_EXTRACT(blocks.data, '$.difficulty') AS difficulty FROM blocks WHERE network_id=:network_id ORDER BY id DESC LIMIT 1000";
+<?php
+$sql="
+select
+    block_id,
+    json_extract(blocks.data, '$.size') as size,
+    json_extract(blocks.data, '$.time') as time,
+    json_extract(blocks.data, '$.difficulty') as difficulty
+from blocks
+order by id desc
+limit 1000";
 $q=$GLOBALS['dbh']->prepare($sql);
-$q->bindParam(':network_id',$GLOBALS["network_id"], PDO::PARAM_INT);
 $q->execute();
 if ($q->rowCount()>0)
 {
+  $arr_sizes = [];
+  $arr_times = [];
+  $arr_difficulties = [];
+  $arr_block_ids = [];
   while($row=$q->fetch(PDO::FETCH_ASSOC))
   {
     $arr_sizes[]=$row["size"];
@@ -107,7 +118,7 @@ if ($q->rowCount()>0)
         fontSize:  '12pt',
         fontWeight:  'bold',
         color:  '#ffffff'
-      },          
+      },
     },
     labels:[<?=implode(",",$arr_block_ids)?>],
     xaxis: {

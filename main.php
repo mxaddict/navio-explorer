@@ -1,11 +1,10 @@
 <?=title("Home")?>
 <div class="p-4">
-	<?
+	<?php
 	$initial_amount=75000000;
 	$block_reward=4;
-	$sql="SELECT data FROM data WHERE network_id=:network_id AND k='blockchaininfo' LIMIT 1";
+	$sql="select data from data where id = 1 and k='blockchaininfo' limit 1";
 	$q=$GLOBALS['dbh']->prepare($sql);
-	$q->bindParam(':network_id',$GLOBALS["network_id"], PDO::PARAM_INT);
 	$q->execute();
 	if ($q->rowCount()>0)
 	{
@@ -19,9 +18,8 @@
 		$headers=0;
 		$average_block_spacing=0;
 	}
-	$sql="SELECT * FROM peers WHERE network_id=:network_id LIMIT 1";
+	$sql="select * from peers where id = 1 limit 1";
 	$q=$GLOBALS['dbh']->prepare($sql);
-	$q->bindParam(':network_id',$GLOBALS["network_id"], PDO::PARAM_INT);
 	$q->execute();
 	if ($q->rowCount()>0)
 	{
@@ -31,9 +29,8 @@
 	}
 	try
 	{
-		$sql="SELECT MAX(block_id) AS latest_block FROM blocks WHERE network_id=:network_id LIMIT 1";
+		$sql="select max(block_id) as latest_block from blocks limit 1";
 		$q=$GLOBALS['dbh']->prepare($sql);
-		$q->bindParam(':network_id',$GLOBALS["network_id"], PDO::PARAM_INT);
 		$q->execute();
 		if ($q->rowCount()>0)
 		{
@@ -46,17 +43,16 @@
 		{
 			$latest_block=0;
 		}
-		$sql="SELECT
+		$sql="select
 		blocks.block_id,
 		blocks.hash,
-		blocks.data as blockData,
-		txs.data as txData
-		FROM blocks
-		LEFT JOIN txs ON txs.block_hash=blocks.hash AND txs.txno=1 AND blocks.network_id=txs.network_id
-		WHERE blocks.network_id=:network_id
-		ORDER BY blocks.id DESC LIMIT 10";
+		blocks.data as blockdata,
+		txs.data as txdata
+		from blocks
+		left join txs on txs.block_hash=blocks.hash and txs.txno=1
+        order by blocks.id desc
+        limit 10";
 		$q=$GLOBALS['dbh']->prepare($sql);
-		$q->bindParam(':network_id',$GLOBALS["network_id"], PDO::PARAM_INT);
 		$q->execute();
 		if ($q->rowCount()>0)
 		{
@@ -142,14 +138,14 @@
 			</tr>
 		</thead>
 		<tbody>
-			<?
+			<?php
 			while($row=$q->fetch(PDO::FETCH_ASSOC))
 			{
-				$blockData=json_decode($row["blockData"]);
-				$txData=json_decode($row["txData"]);
+				$blockdata=json_decode($row["blockdata"]);
+				$txdata=json_decode($row["txdata"]);
 				$fee="";
-                if (isset($txData->vout)) {
-                    foreach ($txData->vout as $k=>$v) {
+                if (isset($txdata->vout)) {
+                    foreach ($txdata->vout as $k=>$v) {
                         if ($v->scriptPubKey->asm=="OP_RETURN") {
                             $fee=$v->value;
                         }
@@ -164,41 +160,41 @@
 						<a class='text-blue-600 dark:text-blue-400' href="block/<?=$row["hash"]?>"><?=$row["hash"]?></a>
 					</td>
 					<td class="px-6 py-4 text-gray-900 dark:text-white">
-						<?
-						$epoch = $blockData->time;
+						<?php
+						$epoch = $blockdata->time;
 						$dt = new DateTime("@$epoch");
 						echo $dt->format('Y-m-d H:i:s');
 						?>
 					</td>
 					<td class="px-6 py-4 text-gray-900 dark:text-white">
-						<?=($blockData->nTx==1?"Empty":"Not Empty")?>
+						<?=($blockdata->nTx==1?"Empty":"Not Empty")?>
 					</td>
 					<td class="px-6 py-4 text-gray-900 dark:text-white">
-						<?=$blockData->size?>
+						<?=$blockdata->size?>
 					</td>
 					<td class="px-6 py-4 text-gray-900 dark:text-white">
-						<?= isset($txData) ? count($txData->vin) : 0; ?>
+						<?= isset($txdata) ? count($txdata->vin) : 0; ?>
 					</td>
 					<td class="px-6 py-4 text-gray-900 dark:text-white">
-						<?= isset($txData) ? count($txData->vout) : 0; ?>
+						<?= isset($txdata) ? count($txdata->vout) : 0; ?>
 					</td>
 					<td class="px-6 py-4 text-gray-900 dark:text-white">
 						<?=$fee;?>
 					</td>
 				</tr>
-				<?
+				<?php
 			}
 			?>
 		</tbody>
 	</table>
 </div>
-<?
+<?php
 }
 else
 {
 	?>
 	<p class="text-gray-900 dark:text-white">No blocks found.</p>
-	<?
+	<?php
 }
 }
 catch (PDOException $e)

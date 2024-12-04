@@ -1,50 +1,67 @@
-<?
+<?php
+
 session_start();
-if (isset($_GET["network_id"]))
-{
-    $_SESSION["network_id"]=$_GET["network_id"];
+
+$networks = [
+    "testnet",
+    "mainnet",
+];
+
+if (!isset($_SESSION["network"])) {
+    $_SESSION["network"] = $networks[0];
 }
-else
-{
-    if (empty($_SESSION["network_id"])) $_SESSION["network_id"]=1;
+
+if (isset($_GET["network"])) {
+    if (in_array($networks, $_GET["network"])) {
+        $_SESSION["network"] = $_GET["network"];
+    }
 }
-if ($_SESSION["network_id"]==1) $_SESSION["network_name"]="testnet";
-if ($_SESSION["network_id"]==2) $_SESSION["network_name"]="mainnet";
-$GLOBALS["network_name"]=$_SESSION["network_name"];
-$GLOBALS["network_id"]=$_SESSION["network_id"];
-include "db.php";
-try
-{
-	$GLOBALS['dbh']=new PDO('mysql:host=' . $DBHost.';dbname='.$DBName, $DBUser, $DBPass);
-	$GLOBALS['dbh']->query("SET NAMES 'utf8'");
-	$GLOBALS['dbh']->query("SET CHARACTER SET utf8");
-	$GLOBALS['dbh']->query("SET COLLATION_CONNECTION = 'utf8_general_ci'");
-	$GLOBALS['dbh']->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	$GLOBALS['dbh']->setAttribute(PDO::ATTR_EMULATE_PREPARES, FALSE);
+
+// This is just to editor does not complain about it being not declared
+$DB_HOST = "";
+$DB_NAME = "";
+$DB_USER = "";
+$DB_PASS = "";
+
+include "db.{$_SESSION["network"]}.php";
+
+try {
+    $GLOBALS['dbh'] = new PDO('mysql:host=' . $DB_HOST.';dbname='.$DB_NAME, $DB_USER, $DB_PASS);
+    $GLOBALS['dbh']->query("SET NAMES 'utf8'");
+    $GLOBALS['dbh']->query("SET CHARACTER SET utf8");
+    $GLOBALS['dbh']->query("SET COLLATION_CONNECTION = 'utf8_general_ci'");
+    $GLOBALS['dbh']->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $GLOBALS['dbh']->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+} catch (PDOException $e) {
+    echo "Database Connection Error : " . $e->getMessage();
 }
-catch(PDOException $e)
+
+function pretty_dump($arr, $d = 0)
 {
-	echo "Database Connection Error : " . $e->getMessage();
-}
-function pretty_dump($arr, $d=0){
-    if ($d==1) echo "<pre>";    // HTML Only
-    if (is_array($arr)){
-        foreach($arr as $k=>$v){
-            for ($i=0;$i<$d;$i++){
+    if ($d == 1) {
+        echo "<pre>";
+    } // HTML Only
+
+    if (is_array($arr)) {
+        foreach ($arr as $k => $v) {
+            for ($i = 0;$i < $d;$i++) {
                 echo "\t";
             }
-            if (is_array($v)){
+            if (is_array($v)) {
                 echo "<span class='text-gray-400'>" . $k . "</span>" . PHP_EOL;
-                Pretty_Dump($v, $d+1);
+                pretty_dump($v, $d + 1);
             } else {
                 echo "<span class='text-gray-500'>" . $k . "</span>" .":".$v.PHP_EOL;
             }
         }
     }
-    if ($d==1) echo "</pre>";   // HTML Only
+
+    if ($d == 1) {
+        echo "</pre>";
+    } // HTML Only
 }
+
 function title($title)
 {
     echo "<title>".$title." - Navio Explorer</title>";
 }
-?>

@@ -1,22 +1,20 @@
 <?=title("Transaction Details")?>
 <div class="p-4 w-full">
 	<h4 class="text-lg font-bold text-white dark:text-white">Transaction Details</h4>
-	<?
+	<?php
 	try
 	{
-		$sql="SELECT 
-		blocks.block_id,
-		blocks.hash,
-		txs.data 
-		FROM txs 
-		LEFT JOIN blocks ON txs.block_hash=blocks.hash
-		WHERE 
-		txs.txid=:txid 
-		AND blocks.network_id=:network_id 
-		LIMIT 1";
+        $sql = "
+        select
+            blocks.block_id,
+            blocks.hash,
+            txs.data
+        from txs
+        left join blocks on txs.block_hash=blocks.hash
+        where txs.txid=:txid
+        limit 1";
 		$q=$GLOBALS['dbh']->prepare($sql);
 		$q->bindParam(':txid',$_GET["hash"] , PDO::PARAM_STR);
-		$q->bindParam(':network_id',$GLOBALS["network_id"], PDO::PARAM_INT);
 		$q->execute();
 		if ($q->rowCount()>0)
 		{
@@ -38,7 +36,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<?
+						<?php
 						foreach ($data as $k=>$v)
 						{
 							?>
@@ -47,7 +45,7 @@
 									<?=$k?>
 								</td>
 								<td class="px-6 py-4 text-gray-900 dark:text-white">
-									<?
+									<?php
 									if (is_array($v))
 									{
 										pretty_dump($v);
@@ -56,18 +54,18 @@
 									{
 										?>
 										<?=$v?>
-										<?
+										<?php
 									}
 									?>
 								</td>
 							</tr>
-							<?
+							<?php
 						}
 						?>
 					</tbody>
 				</table>
 			</div>
-			<?
+			<?php
 		}
 	}
 	catch (PDOException $e)

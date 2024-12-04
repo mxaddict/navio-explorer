@@ -4,18 +4,17 @@
 	<p class="text-white dark:text-white"><?=((isset($_GET["page"])?"Page : " . $_GET["page"]:"Latest Blocks"))?></p>
 </div>
 <div class="p-4">
-	<?
+	<?php
 	$record_per_page=10;
 	try
 	{
-		$sql="SELECT max(block_id) AS t FROM `blocks` WHERE blocks.network_id=:network_id";
+		$sql="select max(block_id) as count from blocks";
 		$q=$GLOBALS['dbh']->prepare($sql);
-		$q->bindParam(':network_id',$GLOBALS["network_id"], PDO::PARAM_INT);
 		$q->execute();
 		if ($q->rowCount()>0)
 		{
 			$row=$q->fetch(PDO::FETCH_ASSOC);
-			$total_blocks=$row["t"];
+			$total_blocks=$row["count"];
 			$total_page=ceil($total_blocks/$record_per_page);
 		}
         $offset = '';
@@ -23,15 +22,15 @@
 		{
 			$offset=" OFFSET ".($record_per_page*intval($_GET["page"]-1));
 		}
-		$sql="SELECT 
+		$sql="select
 		blocks.block_id,
 		blocks.hash,
-		blocks.data as blockData
-		FROM blocks
-		WHERE blocks.network_id=:network_id
-		ORDER BY blocks.id DESC LIMIT ".$record_per_page.$offset;
+		blocks.data as blockdata
+		from blocks
+        order by blocks.id desc
+        limit {$record_per_page}
+        {$offset}";
 		$q=$GLOBALS['dbh']->prepare($sql);
-		$q->bindParam(':network_id',$GLOBALS["network_id"], PDO::PARAM_INT);
 		$q->execute();
 		if ($q->rowCount()>0)
 		{
@@ -53,7 +52,7 @@
 					<path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18" />
 				</svg>
 			First</a>
-			<?
+			<?php
 			if ($previuouspage>0)
 			{
 				?>
@@ -61,7 +60,7 @@
 					<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
 				</svg>
 			</a>
-			<?
+			<?php
 		}
 		else
 		{
@@ -70,11 +69,11 @@
 				<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
 			</svg>
 		</a>
-		<?
+		<?php
 	}
 	?>
 	<span class="text-white dark:text-white me-2 text-center inline-flex items-center"><?=$current_page?> / <?=$total_page?></span>
-	<?
+	<?php
 	if ($current_page<$total_page)
 	{
 		?>
@@ -82,7 +81,7 @@
 			<path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
 		</svg>
 	</a>
-	<?
+	<?php
 }
 else
 {
@@ -91,7 +90,7 @@ else
 		<path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
 	</svg>
 </a>
-<?
+<?php
 }
 ?>
 <a href="blocks/<?=$total_page?>" class="text-center inline-flex items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -121,10 +120,10 @@ Last</a>
 			</tr>
 		</thead>
 		<tbody>
-			<?
+			<?php
 			while($row=$q->fetch(PDO::FETCH_ASSOC))
 			{
-				$blockData=json_decode($row["blockData"]);
+				$blockdata=json_decode($row["blockdata"]);
 				?>
 				<tr class="bg-white text-gray-900 border-b dark:bg-zinc-800 dark:border-zinc-900 dark:text-white">
 					<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -134,32 +133,32 @@ Last</a>
 						<a class='text-blue-600 dark:text-blue-400' href="block/<?=$row["hash"]?>"><?=$row["hash"]?></a>
 					</td>
 					<td class="px-6 py-4 text-gray-900 dark:text-white">
-						<?
-						$epoch = $blockData->time;
+						<?php
+						$epoch = $blockdata->time;
 						$dt = new DateTime("@$epoch");
 						echo $dt->format('Y-m-d H:i:s');
 						?>
 					</td>
 					<td class="px-6 py-4 text-gray-900 dark:text-white">
-						<?=($blockData->nTx==1?"Empty":"Not Empty")?>
+						<?=($blockdata->nTx==1?"Empty":"Not Empty")?>
 					</td>
 					<td class="px-6 py-4 text-gray-900 dark:text-white">
-						<?=$blockData->size?>
+						<?=$blockdata->size?>
 					</td>
 				</tr>
-				<?
+				<?php
 			}
 			?>
 		</tbody>
 	</table>
 </div>
-<?
+<?php
 }
 else
 {
 	?>
 	<p class="text-gray-900 dark:text-white">No blocks found.</p>
-	<?
+	<?php
 }
 }
 catch (PDOException $e)

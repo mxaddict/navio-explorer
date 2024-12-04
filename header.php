@@ -1,4 +1,4 @@
-<?
+<?php
 $class_a="text-blue-700 dark:text-blue-600";
 $class_p="text-gray-900 dark:text-white";
 $action = isset($_GET['a']) ? $_GET['a'] : '';
@@ -107,10 +107,10 @@ $action = isset($_GET['a']) ? $_GET['a'] : '';
         <div id="dropdownNavbar" class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-zinc-800 dark:divide-zinc-700">
           <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownLargeButton">
             <li>
-              <a href="?network_id=1" class="block px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-700 dark:hover:text-white">Testnet<?=($GLOBALS["network_id"]==1?" (Active)":"")?></a>
+              <a href="?network=testnet" class="block px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-700 dark:hover:text-white">Testnet<?=($GLOBALS["network"]=="testnet"?" (Active)":"")?></a>
             </li>
             <li>
-              <a href="?network_id=2" class="block px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-700 dark:hover:text-white">Mainnet<?=($GLOBALS["network_id"]==2?" (Active)":"")?></a>
+              <a href="?network=mainnet" class="block px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-700 dark:hover:text-white">Mainnet<?=($GLOBALS["network"]=="mainnet"?" (Active)":"")?></a>
             </li>
           </ul>
         </div>

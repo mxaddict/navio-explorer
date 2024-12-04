@@ -1,17 +1,15 @@
 <?=title("Faucet Wallet Transaction History")?>
 <div class="p-4 w-full">
 	<h4 class="text-lg font-bold text-white dark:text-white">Faucet Wallet Transaction History</h4>
-	<?
+	<?php
 	try
 	{
-		$sql="SELECT 
+		$sql="select
 		data,
-		last_updated 
-		FROM faucet_txs
-		WHERE faucet_txs.network_id=:network_id 
-		LIMIT 1";
+		last_updated
+		from faucet_txs
+		limit 1";
 		$q=$GLOBALS['dbh']->prepare($sql);
-		$q->bindParam(':network_id',$GLOBALS["network_id"], PDO::PARAM_INT);
 		$q->execute();
 		if ($q->rowCount()>0)
 		{
@@ -47,7 +45,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<?
+						<?php
 						foreach ($data as $k=>$v)
 						{
 							if (empty($_GET["type"])||(!empty($_GET["type"])&&$v->category==$_GET["type"]))
@@ -62,7 +60,7 @@
 										<?=$v->category?>
 									</td>
 									<td class="px-6 py-4 text-gray-900 dark:text-white">
-										<?
+										<?php
 										$epoch = $v->time;
 										$dt = new DateTime("@$epoch");
 										echo $dt->format('d-m-Y H:i:s');
@@ -72,14 +70,14 @@
 										<?=$v->amount?>
 									</td>
 								</tr>
-								<?
+								<?php
 							}
 						}
 						?>
 					</tbody>
 				</table>
 			</div>
-			<?
+			<?php
 		}
 	}
 	catch (PDOException $e)

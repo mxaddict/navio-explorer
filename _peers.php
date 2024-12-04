@@ -1,7 +1,7 @@
 <?=title("Peers")?>
 <div class="p-4 w-full">
 	<h4 class="text-lg font-bold text-white dark:text-white">Active Peer Details</h4>
-	<?
+	<?php
 	require 'vendor/autoload.php';
 	require_once 'vendor/autoload.php';
 	use MaxMind\Db\Reader;
@@ -13,7 +13,7 @@
 	{
         $commit_hash_cache_path = __DIR__ . "/cache/commit_hash.json";
         if (
-            !file_exists($commit_hash_cache_path) || 
+            !file_exists($commit_hash_cache_path) ||
             filemtime($commit_hash_cache_path) + 500 < time()
         ) {
             $url="https://api.github.com/repos/nav-io/navio-core/commits?per_page=1";
@@ -35,10 +35,9 @@
 		<div class="text-white dark:text-white">
 			Latest commit hash : <?=$latest_commit_hash;?> (<?=$latest_commit_hash_short?>) (<?=$latest_commit_date?> UTC)
 		</div>
-		<?
-		$sql="SELECT * FROM peers WHERE network_id=:network_id LIMIT 1";
+		<?php
+		$sql="select * from peers where id = 1 limit 1";
 		$q=$GLOBALS['dbh']->prepare($sql);
-		$q->bindParam(':network_id',$GLOBALS["network_id"], PDO::PARAM_INT);
 		$q->execute();
 		if ($q->rowCount()>0)
 		{
@@ -76,7 +75,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<?
+						<?php
 						foreach ($data[0] as $k=>$v)
 						{
 							$ip=gethostbyname(explode(":",$v["addr"])[0]);
@@ -97,7 +96,7 @@
 									<?=$city["continent"]["code"];?>
 								</td>
 								<td>
-									<?=$city["city"]["names"]["en"]?> - 
+									<?=$city["city"]["names"]["en"]?> -
 									<?=$city["country"]["names"]["en"]?> (<?=$city["country"]["iso_code"]?>)
 									<p><?=$asn["autonomous_system_organization"]?></p>
 								</td>
@@ -120,7 +119,7 @@
 									<?=$v["synced_headers"]?>
 								</td>
 							</tr>
-							<?
+							<?php
 						}
 						$CityReader->close();
 						$ASNReader->close();
@@ -128,7 +127,7 @@
 					</tbody>
 				</table>
 			</div>
-			<?
+			<?php
 		}
 	}
 	catch (PDOException $e)
