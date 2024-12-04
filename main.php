@@ -2,7 +2,7 @@
 <?php
 $initial_amount = 75000000;
 $block_reward = 4;
-$sql = "select data from data where key = 'blockchaininfo' limit 1";
+$sql = "select data from data where `key` = 'blockchaininfo' limit 1";
 $q = $GLOBALS['dbh']->prepare($sql);
 $q->execute();
 if ($q->rowCount() > 0) {
