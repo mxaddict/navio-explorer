@@ -5,15 +5,17 @@ $block_reward = 4;
 $sql = "select data from data where `key` = 'blockchaininfo' limit 1";
 $q = $GLOBALS['dbh']->prepare($sql);
 $q->execute();
+$headers = 0;
+$average_block_spacing = 0;
 if ($q->rowCount() > 0) {
     $row = $q->fetch(PDO::FETCH_ASSOC);
     $data = json_decode($row["data"], true);
-    $headers = $data[0]["headers"];
-    $average_block_spacing = $data[0]["averageblockspacing"];
-} else {
-    $headers = 0;
-    $average_block_spacing = 0;
+    if (isset($data[0])) {
+        $headers = $data[0]["headers"];
+        $average_block_spacing = $data[0]["averageblockspacing"];
+    }
 }
+
 $sql = "select data from data where `key` = 'peerinfo' limit 1";
 $q = $GLOBALS['dbh']->prepare($sql);
 $q->execute();
