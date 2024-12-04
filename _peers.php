@@ -11,14 +11,18 @@
 	$ASNReader = new Reader($ASNDatabaseFile);
 	try
 	{
-		$url="https://api.github.com/repos/nav-io/navio-core/commits?per_page=1";
-		$ch=curl_init();
-		curl_setopt($ch, CURLOPT_URL, $url);
-		curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.2; WOW64; rv:17.0) Gecko/20100101 Firefox/17.0;");
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		$content = curl_exec($ch);
-		curl_close($ch);
-		$json=json_decode($content);
+        $commit_hash_cache_path = "./cache/commit_hash.json";
+        if (filemtime($commit_hash_cache_path) + 500 > time()) {
+            $url="https://api.github.com/repos/nav-io/navio-core/commits?per_page=1";
+            $ch=curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.2; WOW64; rv:17.0) Gecko/20100101 Firefox/17.0;");
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $content = curl_exec($ch);
+            curl_close($ch);
+            file_put_contents($commit_hash_cache_path, $content);
+        }
+		$json=json_decode(file_get_contents($commit_hash_cache_path));
         $latest_commit_hash=is_array($json) ? $json[0]->sha : 'UNKNOWN';
         $latest_commit_hash_short=substr($latest_commit_hash,0,12);
         $latest_commit_date=is_array($json) ? $json[0]->commit->author->date : "1970-01-01T00:00:00Z";
