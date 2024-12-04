@@ -7,7 +7,7 @@
 		data,
 		updated
         from data
-        where key = 'faucet_txs'
+        where k = 'faucet_txs'
 		limit 1";
         $q = $GLOBALS['dbh']->prepare($sql);
         $q->execute();
