@@ -20,7 +20,7 @@ $q->execute();
 if ($q->rowCount() > 0) {
     $row = $q->fetch(PDO::FETCH_ASSOC);
     $data = json_decode($row["data"], true);
-    $active_peer_count = count($data[0]);
+    $active_peer_count = isset($data[0]) && is_array($data[0]) ? count($data[0]) : 0;
 }
 
 try {
