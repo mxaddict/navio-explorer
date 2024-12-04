@@ -148,13 +148,13 @@
 				$blockData=json_decode($row["blockData"]);
 				$txData=json_decode($row["txData"]);
 				$fee="";
-				foreach ($txData->vout as $k=>$v)
-				{
-					if ($v->scriptPubKey->asm=="OP_RETURN")
-					{
-						$fee=$v->value;
-					}
-				}
+                if (isset($txData->vout)) {
+                    foreach ($txData->vout as $k=>$v) {
+                        if ($v->scriptPubKey->asm=="OP_RETURN") {
+                            $fee=$v->value;
+                        }
+                    }
+                }
 				?>
 				<tr class="bg-white text-gray-900 border-b dark:bg-zinc-800 dark:border-zinc-900 dark:text-white">
 					<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
