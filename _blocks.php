@@ -34,22 +34,16 @@
 		$q->execute();
 		if ($q->rowCount()>0)
 		{
-			if ($_GET["page"])
+			if (isset($_GET["page"]))
 			{
 				$nextpage=$_GET["page"]+1;
 				$current_page=$_GET["page"];
+				$previuouspage=$_GET["page"]-1;
 			}
 			else
 			{
 				$current_page=1;
 				$nextpage=2;
-			}
-			if ($_GET["page"])
-			{
-				$previuouspage=$_GET["page"]-1;
-			}
-			else
-			{
 				$previuouspage=-1;
 			}
 			?>
