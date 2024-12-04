@@ -11,7 +11,7 @@
 	$ASNReader = new Reader($ASNDatabaseFile);
 	try
 	{
-        $commit_hash_cache_path = "./cache/commit_hash.json";
+        $commit_hash_cache_path = __DIR__ . "cache/commit_hash.json";
         if (filemtime($commit_hash_cache_path) + 500 > time()) {
             $url="https://api.github.com/repos/nav-io/navio-core/commits?per_page=1";
             $ch=curl_init();
