@@ -43,6 +43,7 @@ try {
 		data as blockdata,
 		txs.data as txdata
 		from blks
+        join txs on txs.block_hash = blks.hash and txs.txno = 1
         order by blks.id desc
         limit 10";
     $q = $GLOBALS['dbh']->prepare($sql);
