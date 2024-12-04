@@ -1,22 +1,21 @@
-<?=title("Faucet Wallet Transaction History")?>
+<?=title("Faucet Wallet Transaction History");?>
 <div class="p-4 w-full">
 	<h4 class="text-lg font-bold text-white dark:text-white">Faucet Wallet Transaction History</h4>
 	<?php
-	try
-	{
-		$sql="select
+    try {
+        $sql = "select
 		data,
-		last_updated
-		from faucet_txs
+		updated
+        from data
+        where key = 'faucet_txs'
 		limit 1";
-		$q=$GLOBALS['dbh']->prepare($sql);
-		$q->execute();
-		if ($q->rowCount()>0)
-		{
-			$row=$q->fetch(PDO::FETCH_ASSOC);
-			$data=json_decode($row["data"]);
-			$dt = new DateTime($row["last_updated"]);
-			?>
+        $q = $GLOBALS['dbh']->prepare($sql);
+        $q->execute();
+        if ($q->rowCount() > 0) {
+            $row = $q->fetch(PDO::FETCH_ASSOC);
+            $data = json_decode($row["data"]);
+            $dt = new DateTime($row["updated"]);
+            ?>
 			<h6 class="text-white dark:text-white">Last updated : <?=$dt->format('d-m-Y H:i:s')?></h6>
 			<div class="mt-5">
 				<span class="text-white dark:text-white">Filter by category : </span>
@@ -45,13 +44,8 @@
 						</tr>
 					</thead>
 					<tbody>
-						<?php
-						foreach ($data as $k=>$v)
-						{
-							if (empty($_GET["type"])||(!empty($_GET["type"])&&$v->category==$_GET["type"]))
-							{
-								//var_dump($v);
-								?>
+						<?php foreach ($data as $k => $v) { ?>
+                            <?php if (empty($_GET["type"]) || (!empty($_GET["type"]) && $v->category == $_GET["type"])) { ?>
 								<tr class="bg-white text-gray-900 border-b dark:bg-zinc-800 dark:border-zinc-900 dark:text-white">
 									<td class="px-6 py-4 text-gray-900 dark:text-white">
 										<?=$v->blockheight?>
@@ -60,29 +54,25 @@
 										<?=$v->category?>
 									</td>
 									<td class="px-6 py-4 text-gray-900 dark:text-white">
-										<?php
-										$epoch = $v->time;
-										$dt = new DateTime("@$epoch");
-										echo $dt->format('d-m-Y H:i:s');
-										?>
+                                    <?php
+                                        $epoch = $v->time;
+                                        $dt = new DateTime("@$epoch");
+                                        echo $dt->format('d-m-Y H:i:s');
+                                    ?>
 									</td>
 									<td class="px-6 py-4 text-gray-900 dark:text-white">
 										<?=$v->amount?>
 									</td>
 								</tr>
-								<?php
-							}
-						}
-						?>
+                            <?php } ?>
+                        <?php } ?>
 					</tbody>
 				</table>
 			</div>
-			<?php
-		}
-	}
-	catch (PDOException $e)
-	{
-		echo $e->getMessage();
-	}
-	?>
+<?php
+        }
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+    }
+?>
 </div>

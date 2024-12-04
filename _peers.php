@@ -36,7 +36,7 @@
 			Latest commit hash : <?=$latest_commit_hash;?> (<?=$latest_commit_hash_short?>) (<?=$latest_commit_date?> UTC)
 		</div>
 		<?php
-		$sql="select * from peers where id = 1 limit 1";
+		$sql="select * from data where key = 'peerinfo' limit 1";
 		$q=$GLOBALS['dbh']->prepare($sql);
 		$q->execute();
 		if ($q->rowCount()>0)
