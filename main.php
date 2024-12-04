@@ -39,8 +39,8 @@ try {
     }
     $sql = "select
 		blks.height,
-		hash,
-		data as blockdata,
+		blks.hash,
+		blks.data as blockdata,
 		txs.data as txdata
 		from blks
         join txs on txs.block_hash = blks.hash and txs.txno = 1 and txs.height = blks.height
