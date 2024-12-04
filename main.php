@@ -14,7 +14,7 @@ if ($q->rowCount() > 0) {
     $headers = 0;
     $average_block_spacing = 0;
 }
-$sql = "select * from peers where id = 1 limit 1";
+$sql = "select data from data where `key` = 'peerinfo' limit 1";
 $q = $GLOBALS['dbh']->prepare($sql);
 $q->execute();
 if ($q->rowCount() > 0) {
