@@ -97,7 +97,7 @@
 									<?=$city["continent"]["code"];?>
 								</td>
 								<td>
-									<?=$city["city"]["names"]["en"]?> -
+									<?=(isset($city["city"]) ? $city["city"]["names"]["en"] : "Unknown")?> -
 									<?=$city["country"]["names"]["en"]?> (<?=$city["country"]["iso_code"]?>)
 									<p><?=$asn["autonomous_system_organization"]?></p>
 								</td>
