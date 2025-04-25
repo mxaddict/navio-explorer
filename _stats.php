@@ -24,7 +24,6 @@ while($row=$q->fetch(PDO::FETCH_ASSOC)) {
     $arr_difficulties[]=$row["difficulty"];
     $arr_heights[]=$row["height"];
     $previousBlockTime=$row["time"];
-  }
 }
 ?>
 <script>
