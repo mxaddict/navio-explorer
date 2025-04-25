@@ -173,7 +173,7 @@ chart.render();
         color:  '#ffffff'
       },
     },
-    labels:[<?=implode(",",$arr_block_ids)?>],
+    labels:[<?=implode(",",$arr_heights)?>],
     xaxis: {
      labels: {
       show: false,
