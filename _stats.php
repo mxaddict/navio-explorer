@@ -18,9 +18,12 @@ $arr_sizes = [];
 $arr_times = [];
 $arr_difficulties = [];
 $arr_heights = [];
+$previousBlockTime = 0;
 while($row=$q->fetch(PDO::FETCH_ASSOC)) {
     $arr_sizes[]=$row["size"];
-    if ($previousBlockTime) $arr_times[]=($previousBlockTime-$row["time"]);
+    if ($previousBlockTime) {
+        $arr_times[]=($previousBlockTime-$row["time"]);
+    }
     $arr_difficulties[]=$row["difficulty"];
     $arr_heights[]=$row["height"];
     $previousBlockTime=$row["time"];
