@@ -1,6 +1,7 @@
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <div id="chart1" class="w-full" style="min-height: 365px;width:100%"></div>
 <div id="chart2" class="w-full" style="min-height: 365px;width:100%"></div>
+<div id="chart3" class="w-full" style="min-height: 365px;width:100%"></div>
 <?php
 $sql="
 select
@@ -19,9 +20,11 @@ $arr_difficulties = [];
 $arr_heights = [];
 while($row=$q->fetch(PDO::FETCH_ASSOC)) {
     $arr_sizes[]=$row["size"];
-    $arr_times[]=$row["time"];
+    if ($previousBlockTime) $arr_times[]=($previousBlockTime-$row["time"]);
     $arr_difficulties[]=$row["difficulty"];
     $arr_heights[]=$row["height"];
+    $previousBlockTime=$row["time"];
+  }
 }
 ?>
 <script>
@@ -132,5 +135,60 @@ while($row=$q->fetch(PDO::FETCH_ASSOC)) {
   }
 };
 var chart = new ApexCharts(document.querySelector("#chart2"), options);
+chart.render();
+</script>
+<script>
+  var options = {
+    series: [{
+      name: "Block Time",
+      data: [<?=implode(",",$arr_times)?>]
+    }],
+    chart: {
+      type: 'area',
+      height: 350,
+      zoom: {
+        enabled: false
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'straight'
+    },
+    title: {
+      text: 'Block Times',
+      align: 'left',
+      style: {
+        fontSize:  '12pt',
+        fontWeight:  'bold',
+        color:  '#ffffff'
+      },
+    },
+    subtitle: {
+      text: 'Latest 1000 Block',
+      align: 'left',
+      style: {
+        fontSize:  '12pt',
+        fontWeight:  'bold',
+        color:  '#ffffff'
+      },
+    },
+    labels:[<?=implode(",",$arr_block_ids)?>],
+    xaxis: {
+     labels: {
+      show: false,
+    }
+  },
+  yaxis: {
+    opposite: true
+  },
+  legend: {
+    horizontalAlign: 'left',
+    colors: 'white',
+    useSeriesColors: false
+  }
+};
+var chart = new ApexCharts(document.querySelector("#chart3"), options);
 chart.render();
 </script>
