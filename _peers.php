@@ -80,10 +80,15 @@
 						foreach ($peers as $k=>$v)
 						{
 							$ip=gethostbyname(explode(":",$v["addr"])[0]);
-							$city="Unknown";
+							$city_en="Unknown";
+                            $city_code="";
+                            $city_iso="";
 							$asn="Unknown";
                             try {
                                 $city=$CityReader->get($ip);
+                                $city_en = $city["continent"]["names"]["en"];
+                                $city_code = $city["continent"]["code"];
+                                $city_iso = $city["country"]["iso_code"];
                                 $asn=$ASNReader->get($ip)["autonomous_system_organization"];
                             } catch (Exception $e) {
                             }
@@ -99,12 +104,12 @@
 							?>
 							<tr class="bg-white text-gray-900 border-b dark:bg-zinc-800 dark:border-zinc-900 dark:text-white">
 								<td>
-									<?=$city["continent"]["names"]["en"];?> -
-									<?=$city["continent"]["code"];?>
+									<?=$city_en;?> -
+									<?=$city_code;?>
 								</td>
 								<td>
-									<?=(isset($city["city"]) ? $city["city"]["names"]["en"] : "Unknown")?> -
-									<?=$city["country"]["names"]["en"]?> (<?=$city["country"]["iso_code"]?>)
+									<?=$city_en?> -
+									<?=$city_en?> (<?=$city_iso?>)
 									<p><?=$asn?></p>
 								</td>
 								<td class="px-6 py-4 text-gray-900 dark:text-white">
