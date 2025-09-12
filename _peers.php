@@ -81,12 +81,13 @@
 						{
 							$ip=gethostbyname(explode(":",$v["addr"])[0]);
 							$city="Unknown";
+							$asn="Unknown";
                             try {
                                 $city=$CityReader->get($ip);
+                                $asn=$ASNReader->get($ip)["autonomous_system_organization"];
                             } catch (Exception $e) {
                             }
 
-							$asn=$ASNReader->get($ip);
 							if (strpos($v["subver"],$latest_commit_hash_short ) !== false)
 							{
 								$class="text-green-500 dark:text-green-500";
@@ -104,7 +105,7 @@
 								<td>
 									<?=(isset($city["city"]) ? $city["city"]["names"]["en"] : "Unknown")?> -
 									<?=$city["country"]["names"]["en"]?> (<?=$city["country"]["iso_code"]?>)
-									<p><?=$asn["autonomous_system_organization"]?></p>
+									<p><?=$asn?></p>
 								</td>
 								<td class="px-6 py-4 text-gray-900 dark:text-white">
 									<?=$v["addr"]?>
