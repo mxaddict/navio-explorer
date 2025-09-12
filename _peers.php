@@ -81,8 +81,8 @@
 						{
 							$ip=gethostbyname(explode(":",$v["addr"])[0]);
 							$city_en="Unknown";
-                            $city_code="";
-                            $city_iso="";
+                            $city_code="Unknown";
+                            $city_iso="Unknown";
 							$asn="Unknown";
                             try {
                                 $city=$CityReader->get($ip);
