@@ -80,7 +80,12 @@
 						foreach ($peers as $k=>$v)
 						{
 							$ip=gethostbyname(explode(":",$v["addr"])[0]);
-							$city=$CityReader->get($ip);
+							$city="Unknown";
+                            try {
+                                $city=$CityReader->get($ip);
+                            } catch (Exception $e) {
+                            }
+
 							$asn=$ASNReader->get($ip);
 							if (strpos($v["subver"],$latest_commit_hash_short ) !== false)
 							{
