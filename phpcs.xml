@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<ruleset name="Laravel Coding Standard">
+    <!--
+      This ruleset is for a Laravel project, using the PSR-12 coding standard.
+      It's a great baseline for ensuring consistent, clean, and readable PHP code.
+    -->
+
+    <description>The custom coding standard for the Laravel project.</description>
+
+    <!--
+      The base path for all file references. This helps PHPCS locate files correctly.
+    -->
+    <arg name="basepath" value="."/>
+
+    <!--
+      Show progress and a summary of all errors and warnings.
+    -->
+    <arg name="colors"/>
+    <arg value="p"/>
+    <arg name="report" value="full"/>
+
+    <!--
+      Set the default memory limit for PHPCS.
+      This can prevent memory exhaustion on large codebases.
+    -->
+    <ini name="memory_limit" value="256M"/>
+
+    <!--
+      Define the core standard to be used. PSR-12 is the most modern and widely
+      adopted standard.
+    -->
+    <rule ref="PSR12"/>
+
+    <!--
+      Add specific directories to be checked. This is where your PHP code lives.
+    -->
+    <file>app</file>
+    <file>config</file>
+    <file>database</file>
+    <file>routes</file>
+    <file>tests</file>
+
+    <!--
+      Exclude patterns for files and directories that should not be checked.
+      This is crucial for Laravel to avoid linting vendor packages, cache files,
+      and other non-essential files.
+    -->
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/bootstrap/*</exclude-pattern>
+    <exclude-pattern>*/storage/*</exclude-pattern>
+    <exclude-pattern>*/cache/*</exclude-pattern>
+    <exclude-pattern>*/views/*</exclude-pattern>
+    <exclude-pattern>*.blade.php</exclude-pattern>
+    <exclude-pattern>*.js</exclude-pattern>
+    <exclude-pattern>*.css</exclude-pattern>
+    <exclude-pattern>*.xml</exclude-pattern>
+    <exclude-pattern>*.yml</exclude-pattern>
+
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="120"/>
+            <property name="absoluteLineLimit" value="120"/>
+        </properties>
+        <exclude-pattern>routes/*</exclude-pattern>
+    </rule>
+
+    <rule ref="Generic.Metrics.NestingLevel">
+        <properties>
+            <property name="nestingLevel" value="3"/>
+            <property name="absoluteNestingLevel" value="10"/>
+        </properties>
+    </rule>
+
+</ruleset>
