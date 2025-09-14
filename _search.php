@@ -19,7 +19,7 @@ try {
     } else {
         include "header.php";
         ?>
-		<?=title("Search")?>
+		<?php echo title("Search")?>
 		<div class="p-4 w-full">
 			<h4 class="text-lg font-bold text-white dark:text-white">Search</h4>
 			<p class="text-white dark:text-white">No block matching your search criteria was found.</p>

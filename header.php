@@ -85,19 +85,19 @@ $action = isset($_GET['a']) ? $_GET['a'] : '';
       </div>
       <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 dark:border-gray-700">
         <li>
-          <a href="./" class="<?=($action==""?$class_a . " ":$class_p." ")?>block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Home</a>
+          <a href="./" class="<?php echo ($action==""?$class_a . " ":$class_p." ")?>block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Home</a>
         </li>
         <li>
-          <a href="blocks/" class="<?=($action=="blocks"?$class_a . " ":$class_p." ")?>block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Blocks</a>
+          <a href="blocks/" class="<?php echo ($action=="blocks"?$class_a . " ":$class_p." ")?>block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Blocks</a>
         </li>
         <li>
-          <a href="peers/" class="<?=($action=="peers"?$class_a . " ":$class_p." ")?>block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Peers</a>
+          <a href="peers/" class="<?php echo ($action=="peers"?$class_a . " ":$class_p." ")?>block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Peers</a>
         </li>
         <li>
-          <a href="rich-list/" class="<?=($action=="rich-list"?$class_a . " ":$class_p." ")?>block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Rich List</a>
+          <a href="rich-list/" class="<?php echo ($action=="rich-list"?$class_a . " ":$class_p." ")?>block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Rich List</a>
         </li>
         <li>
-          <a href="stats/" class="<?=($action=="stats"?$class_a . " ":$class_p." ")?>block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Stats</a>
+          <a href="stats/" class="<?php echo ($action=="stats"?$class_a . " ":$class_p." ")?>block py-2 px-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Stats</a>
         </li>
         <li>
           <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar" class="flex items-center justify-between w-full py-2 px-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white dark:hover:text-white dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">Network <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
@@ -107,10 +107,10 @@ $action = isset($_GET['a']) ? $_GET['a'] : '';
         <div id="dropdownNavbar" class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-zinc-800 dark:divide-zinc-700">
           <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownLargeButton">
             <li>
-              <a href="?network=testnet" class="block px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-700 dark:hover:text-white">Testnet<?=($_SESSION["network"]=="testnet"?" (Active)":"")?></a>
+              <a href="?network=testnet" class="block px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-700 dark:hover:text-white">Testnet<?php echo ($_SESSION["network"]=="testnet"?" (Active)":"")?></a>
             </li>
             <li>
-              <a href="?network=mainnet" class="block px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-700 dark:hover:text-white">Mainnet<?=($_SESSION["network"]=="mainnet"?" (Active)":"")?></a>
+              <a href="?network=mainnet" class="block px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-700 dark:hover:text-white">Mainnet<?php echo ($_SESSION["network"]=="mainnet"?" (Active)":"")?></a>
             </li>
           </ul>
         </div>

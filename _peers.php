@@ -1,4 +1,4 @@
-<?=title("Peers")?>
+<?php echo title("Peers")?>
 <div class="p-4 w-full">
 	<h4 class="text-lg font-bold text-white dark:text-white">Active Peer Details</h4>
 	<?php
@@ -33,7 +33,7 @@
 		$latest_commit_date=date_format($d, 'd-m-Y H:i:s');
 		?>
 		<div class="text-white dark:text-white">
-			Latest commit hash : <?=$latest_commit_hash;?> (<?=$latest_commit_hash_short?>) (<?=$latest_commit_date?> UTC)
+			Latest commit hash : <?php echo $latest_commit_hash;?> (<?php echo $latest_commit_hash_short?>) (<?php echo $latest_commit_date?> UTC)
 		</div>
 		<?php
 		$sql="select data from data where k = 'peerinfo' limit 1";
@@ -104,31 +104,31 @@
 							?>
 							<tr class="bg-white text-gray-900 border-b dark:bg-zinc-800 dark:border-zinc-900 dark:text-white">
 								<td>
-									<?=$city_en;?> -
-									<?=$city_code;?>
+									<?php echo $city_en;?> -
+									<?php echo $city_code;?>
 								</td>
 								<td>
-									<?=$city_en?> -
-									<?=$city_en?> (<?=$city_iso?>)
-									<p><?=$asn?></p>
+									<?php echo $city_en?> -
+									<?php echo $city_en?> (<?php echo $city_iso?>)
+									<p><?php echo $asn?></p>
 								</td>
 								<td class="px-6 py-4 text-gray-900 dark:text-white">
-									<?=$v["addr"]?>
+									<?php echo $v["addr"]?>
 								</td>
 								<td class="px-6 py-4 text-gray-900 dark:text-white">
-									<?=$v["version"]?>
+									<?php echo $v["version"]?>
 								</td>
-								<td class="px-6 py-4 <?=$class?>">
-									<?=$v["subver"]?>
-								</td>
-								<td class="px-6 py-4 text-gray-900 dark:text-white">
-									<?=$v["startingheight"]?>
+								<td class="px-6 py-4 <?php echo $class?>">
+									<?php echo $v["subver"]?>
 								</td>
 								<td class="px-6 py-4 text-gray-900 dark:text-white">
-									<?=$v["synced_blocks"]?>
+									<?php echo $v["startingheight"]?>
 								</td>
 								<td class="px-6 py-4 text-gray-900 dark:text-white">
-									<?=$v["synced_headers"]?>
+									<?php echo $v["synced_blocks"]?>
+								</td>
+								<td class="px-6 py-4 text-gray-900 dark:text-white">
+									<?php echo $v["synced_headers"]?>
 								</td>
 							</tr>
 							<?php

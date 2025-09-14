@@ -1,7 +1,7 @@
-<?=title("Blocks")?>
+<?php echo title("Blocks")?>
 <div class="p-4 text-white dark:text-white">
 	<h6 class="text-lg font-bold text-white dark:text-white">Blocks</h6>
-	<p class="text-white dark:text-white"><?=((isset($_GET["page"])?"Page : " . $_GET["page"]:"Latest Blocks"))?></p>
+	<p class="text-white dark:text-white"><?php echo ((isset($_GET["page"])?"Page : " . $_GET["page"]:"Latest Blocks"))?></p>
 </div>
 <div class="p-4">
 	<?php
@@ -56,7 +56,7 @@
 			if ($previuouspage>0)
 			{
 				?>
-				<a href="blocks/<?=$previuouspage?>" class="text-center inline-flex items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+				<a href="blocks/<?php echo $previuouspage?>" class="text-center inline-flex items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
 					<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
 				</svg>
 			</a>
@@ -72,12 +72,12 @@
 		<?php
 	}
 	?>
-	<span class="text-white dark:text-white me-2 text-center inline-flex items-center"><?=$current_page?> / <?=$total_page?></span>
+	<span class="text-white dark:text-white me-2 text-center inline-flex items-center"><?php echo $current_page?> / <?php echo $total_page?></span>
 	<?php
 	if ($current_page<$total_page)
 	{
 		?>
-		<a href="blocks/<?=$nextpage?>" class="text-center inline-flex items-center  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+		<a href="blocks/<?php echo $nextpage?>" class="text-center inline-flex items-center  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
 			<path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
 		</svg>
 	</a>
@@ -93,7 +93,7 @@ else
 <?php
 }
 ?>
-<a href="blocks/<?=$total_page?>" class="text-center inline-flex items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+<a href="blocks/<?php echo $total_page?>" class="text-center inline-flex items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
 	<path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
 </svg>
 Last</a>
@@ -127,10 +127,10 @@ Last</a>
 				?>
 				<tr class="bg-white text-gray-900 border-b dark:bg-zinc-800 dark:border-zinc-900 dark:text-white">
 					<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-						<a class='text-blue-600 dark:text-blue-400' href="block/<?=$row["hash"]?>"><?=$row["height"]?></a>
+						<a class='text-blue-600 dark:text-blue-400' href="block/<?php echo $row["hash"]?>"><?php echo $row["height"]?></a>
 					</th>
 					<td class="px-6 py-4">
-						<a class='text-blue-600 dark:text-blue-400' href="block/<?=$row["hash"]?>"><?=$row["hash"]?></a>
+						<a class='text-blue-600 dark:text-blue-400' href="block/<?php echo $row["hash"]?>"><?php echo $row["hash"]?></a>
 					</td>
 					<td class="px-6 py-4 text-gray-900 dark:text-white">
 						<?php
@@ -140,10 +140,10 @@ Last</a>
 						?>
 					</td>
 					<td class="px-6 py-4 text-gray-900 dark:text-white">
-						<?=($blockdata->nTx==1?"Empty":"Not Empty")?>
+						<?php echo ($blockdata->nTx==1?"Empty":"Not Empty")?>
 					</td>
 					<td class="px-6 py-4 text-gray-900 dark:text-white">
-						<?=$blockdata->size?>
+						<?php echo $blockdata->size?>
 					</td>
 				</tr>
 				<?php

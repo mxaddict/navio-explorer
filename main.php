@@ -1,4 +1,4 @@
-<?=title("Home")?>
+<?php echo title("Home")?>
 <?php
 $initial_amount = 75000000;
 $block_reward = 4;
@@ -62,7 +62,7 @@ try {
                     </h5>
                     <div class="flex items-baseline text-gray-900 dark:text-white">
                         <span class="textxl font-semibold"></span>
-                        <span class="text-2xl font-extrabold tracking-tight"><?=number_format($nav_in_circulation, 0, ',', '.')?></span>
+                        <span class="text-2xl font-extrabold tracking-tight"><?php echo number_format($nav_in_circulation, 0, ',', '.')?></span>
                         <span class="ms-1 text-xl font-normal text-gray-500 dark:text-gray-300">NAV</span>
                     </div>
                 </div>
@@ -76,7 +76,7 @@ try {
                         </h5>
                         <div class="flex items-baseline text-gray-900 dark:text-white">
                             <span class="textxl font-semibold"></span>
-                            <span class="text-2xl font-extrabold tracking-tight"><?=$active_peer_count?></span>
+                            <span class="text-2xl font-extrabold tracking-tight"><?php echo $active_peer_count?></span>
                             <span class="ms-1 text-xl font-normal text-gray-500 dark:text-gray-300">Peer(s)</span>
                         </div>
                     </a>
@@ -90,8 +90,8 @@ try {
                     </h5>
                     <div class="flex items-baseline text-gray-900 dark:text-white">
                         <span class="textxl font-semibold"></span>
-                        <span class="text-2xl font-extrabold tracking-tight"><?=$latest_block?> / <?=$headers?></span>
-                        <span class="ms-1 text-xl font-normal text-gray-500 dark:text-gray-300"><?=$sync_percent?>%</span>
+                        <span class="text-2xl font-extrabold tracking-tight"><?php echo $latest_block?> / <?php echo $headers?></span>
+                        <span class="ms-1 text-xl font-normal text-gray-500 dark:text-gray-300"><?php echo $sync_percent?>%</span>
                     </div>
                 </div>
                 <div class="flex-1 p-4 mt-4 mb-4 mr-0 bg-white border border-zinc-200 rounded-xl shadow sm:p-8 dark:bg-zinc-800 dark:border-zinc-900 mb-10 bg-gradient-to-br from-yellow-400 via-yellow-600 to-yellow-900">
@@ -103,7 +103,7 @@ try {
                     </h5>
                     <div class="flex items-baseline text-gray-900 dark:text-white">
                         <span class="textxl font-semibold"></span>
-                        <span class="text-2xl font-extrabold tracking-tight"><?=$average_block_spacing?></span>
+                        <span class="text-2xl font-extrabold tracking-tight"><?php echo $average_block_spacing?></span>
                         <span class="ms-1 text-xl font-normal text-gray-500 dark:text-gray-300"> Seconds</span>
                     </div>
                 </div>
@@ -155,28 +155,28 @@ try {
 			    ?>
 				<tr class="bg-white text-gray-900 border-b dark:bg-zinc-800 dark:border-zinc-900 dark:text-white">
 					<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-						<a class='text-blue-600 dark:text-blue-400' href="block/<?=$row["hash"]?>"><?=$row["height"]?></a>
+						<a class='text-blue-600 dark:text-blue-400' href="block/<?php echo $row["hash"]?>"><?php echo $row["height"]?></a>
 					</th>
 					<td class="px-6 py-4">
-						<a class='text-blue-600 dark:text-blue-400' href="block/<?=$row["hash"]?>"><?=$row["hash"]?></a>
+						<a class='text-blue-600 dark:text-blue-400' href="block/<?php echo $row["hash"]?>"><?php echo $row["hash"]?></a>
 					</td>
 					<td class="px-6 py-4 text-gray-900 dark:text-white">
-						<?= (new DateTime("@{$blockdata->time}"))->format('Y-m-d H:i:s'); ?>
+						<?php echo (new DateTime("@{$blockdata->time}"))->format('Y-m-d H:i:s'); ?>
 					</td>
 					<td class="px-6 py-4 text-gray-900 dark:text-white">
-						<?=($blockdata->nTx == 1 ? "Empty" : "Not Empty")?>
+						<?php echo ($blockdata->nTx == 1 ? "Empty" : "Not Empty")?>
 					</td>
 					<td class="px-6 py-4 text-gray-900 dark:text-white">
-						<?=$blockdata->size?>
+						<?php echo $blockdata->size?>
 					</td>
 					<td class="px-6 py-4 text-gray-900 dark:text-white">
-						<?= isset($txdata) ? count($txdata->vin) : 0; ?>
+						<?php echo isset($txdata) ? count($txdata->vin) : 0; ?>
 					</td>
 					<td class="px-6 py-4 text-gray-900 dark:text-white">
-						<?= isset($txdata) ? count($txdata->vout) : 0; ?>
+						<?php echo isset($txdata) ? count($txdata->vout) : 0; ?>
 					</td>
 					<td class="px-6 py-4 text-gray-900 dark:text-white">
-						<?=$fee;?>
+						<?php echo $fee;?>
 					</td>
 				</tr>
             <?php } ?>

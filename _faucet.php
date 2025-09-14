@@ -1,4 +1,4 @@
-<?=title("Faucet Wallet Transaction History");?>
+<?php echo title("Faucet Wallet Transaction History");?>
 <div class="p-4 w-full">
 	<h4 class="text-lg font-bold text-white dark:text-white">Faucet Wallet Transaction History</h4>
 	<?php
@@ -16,7 +16,7 @@
             $data = json_decode($row["data"]);
             $dt = new DateTime($row["updated"]);
             ?>
-			<h6 class="text-white dark:text-white">Last updated : <?=$dt->format('d-m-Y H:i:s')?></h6>
+			<h6 class="text-white dark:text-white">Last updated : <?php echo $dt->format('d-m-Y H:i:s')?></h6>
 			<div class="mt-5">
 				<span class="text-white dark:text-white">Filter by category : </span>
 				<a href="./faucet/?type=send" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Send</a>
@@ -48,10 +48,10 @@
                             <?php if (empty($_GET["type"]) || (!empty($_GET["type"]) && $v->category == $_GET["type"])) { ?>
 								<tr class="bg-white text-gray-900 border-b dark:bg-zinc-800 dark:border-zinc-900 dark:text-white">
 									<td class="px-6 py-4 text-gray-900 dark:text-white">
-										<?=$v->blockheight?>
+										<?php echo $v->blockheight?>
 									</td>
 									<td class="px-6 py-4 text-gray-900 dark:text-white">
-										<?=$v->category?>
+										<?php echo $v->category?>
 									</td>
 									<td class="px-6 py-4 text-gray-900 dark:text-white">
                                     <?php
@@ -61,7 +61,7 @@
                                     ?>
 									</td>
 									<td class="px-6 py-4 text-gray-900 dark:text-white">
-										<?=$v->amount?>
+										<?php echo $v->amount?>
 									</td>
 								</tr>
                             <?php } ?>

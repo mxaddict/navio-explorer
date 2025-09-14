@@ -1,4 +1,4 @@
-<?=title("404 : Privacy is cool")?>
+<?php echo title("404 : Privacy is cool")?>
 <div class="p-4 flex h-full">
 	<div class="m-auto">
 		<center>

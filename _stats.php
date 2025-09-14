@@ -33,7 +33,7 @@ while($row=$q->fetch(PDO::FETCH_ASSOC)) {
   var options = {
     series: [{
       name: "Sizes",
-      data: [<?=implode(",",$arr_sizes)?>]
+      data: [<?php echo implode(",",$arr_sizes)?>]
     }],
     chart: {
       type: 'area',
@@ -65,7 +65,7 @@ while($row=$q->fetch(PDO::FETCH_ASSOC)) {
           color:  '#ffffff'
         },
       },
-      labels:[<?=implode(",",$arr_heights)?>],
+      labels:[<?php echo implode(",",$arr_heights)?>],
       xaxis: {
        labels: {
         show: false,
@@ -88,7 +88,7 @@ while($row=$q->fetch(PDO::FETCH_ASSOC)) {
   var options = {
     series: [{
       name: "Difficulty",
-      data: [<?=implode(",",$arr_difficulties)?>]
+      data: [<?php echo implode(",",$arr_difficulties)?>]
     }],
     chart: {
       type: 'area',
@@ -121,7 +121,7 @@ while($row=$q->fetch(PDO::FETCH_ASSOC)) {
         color:  '#ffffff'
       },
     },
-    labels:[<?=implode(",",$arr_heights)?>],
+    labels:[<?php echo implode(",",$arr_heights)?>],
     xaxis: {
      labels: {
       show: false,
@@ -143,7 +143,7 @@ chart.render();
   var options = {
     series: [{
       name: "Block Time",
-      data: [<?=implode(",",$arr_times)?>]
+      data: [<?php echo implode(",",$arr_times)?>]
     }],
     chart: {
       type: 'area',
@@ -176,7 +176,7 @@ chart.render();
         color:  '#ffffff'
       },
     },
-    labels:[<?=implode(",",$arr_heights)?>],
+    labels:[<?php echo implode(",",$arr_heights)?>],
     xaxis: {
      labels: {
       show: false,
